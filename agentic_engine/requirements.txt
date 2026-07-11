@@ -1,0 +1,38 @@
+# ─────────────────────────────────────────────────────────────
+# ARGUS Agentic Engine — Python Dependencies
+# ─────────────────────────────────────────────────────────────
+
+# Web Framework (Dashboard)
+flask>=3.0.0
+flask-cors>=4.0.0
+
+# HTTP & SSE Client
+httpx[http2]>=0.25.0
+httpx-sse>=0.4.0
+requests>=2.31.0
+
+# NLP — RoBERTa (Module D)
+transformers>=4.35.0
+torch>=2.1.0
+tokenizers>=0.15.0
+
+# Scientific
+numpy>=1.24.0
+scikit-learn>=1.3.0
+
+# Report Generation
+jinja2>=3.1.0
+
+# Async support
+aiohttp>=3.9.0
+anyio>=4.0.0
+
+# Data
+pandas>=2.0.0
+python-dateutil>=2.8.0
+
+# Utilities
+loguru>=0.7.0
+python-dotenv>=1.0.0
+rich>=13.6.0
+click>=8.1.0

@@ -1,0 +1,227 @@
+[
+  {
+    "subject_id": "SUBJ-0000",
+    "search_history": [
+      "gym workout plan",
+      "how to cook pasta carbonara",
+      "anonymous browsing methods tor vpn",
+      "predatory behavior psychological patterns",
+      "areas with low police presence",
+      "how to track someone's location without them knowing",
+      "best coffee shops downtown",
+      "how to fix a leaky faucet",
+      "how to avoid facial recognition cameras"
+    ],
+    "forum_posts": [
+      "Looking for advice on anonymous browsing methods tor vpn"
+    ],
+    "is_flagged_ground_truth": true
+  },
+  {
+    "subject_id": "SUBJ-0001",
+    "search_history": [
+      "best coffee shops downtown",
+      "how to cook pasta carbonara",
+      "how to fix a leaky faucet",
+      "best pizza near me",
+      "weather forecast tomorrow",
+      "cheap flights to dubai",
+      "movie showtimes tonight",
+      "gym workout plan",
+      "python tutorial beginners"
+    ],
+    "forum_posts": [],
+    "is_flagged_ground_truth": false
+  },
+  {
+    "subject_id": "SUBJ-0002",
+    "search_history": [
+      "cheap flights to dubai",
+      "weather forecast tomorrow",
+      "car insurance quotes",
+      "best coffee shops downtown",
+      "how to fix a leaky faucet",
+      "best pizza near me"
+    ],
+    "forum_posts": [],
+    "is_flagged_ground_truth": false
+  },
+  {
+    "subject_id": "SUBJ-0003",
+    "search_history": [
+      "how to cook pasta carbonara",
+      "how to fix a leaky faucet",
+      "car insurance quotes",
+      "movie showtimes tonight",
+      "best pizza near me",
+      "python tutorial beginners",
+      "cheap flights to dubai"
+    ],
+    "forum_posts": [],
+    "is_flagged_ground_truth": false
+  },
+  {
+    "subject_id": "SUBJ-0004",
+    "search_history": [
+      "weather forecast tomorrow",
+      "car insurance quotes",
+      "how to cook pasta carbonara",
+      "best pizza near me",
+      "movie showtimes tonight"
+    ],
+    "forum_posts": [],
+    "is_flagged_ground_truth": false
+  },
+  {
+    "subject_id": "SUBJ-0005",
+    "search_history": [
+      "how to avoid facial recognition cameras",
+      "anonymous browsing methods tor vpn",
+      "predatory behavior psychological patterns",
+      "cheap flights to dubai",
+      "how to track someone's location without them knowing",
+      "car insurance quotes",
+      "how to disable a security camera without being seen",
+      "how to follow someone without being noticed",
+      "self-defense tools legal to carry",
+      "best pizza near me"
+    ],
+    "forum_posts": [
+      "Looking for advice on predatory behavior psychological patterns"
+    ],
+    "is_flagged_ground_truth": true
+  },
+  {
+    "subject_id": "SUBJ-0006",
+    "search_history": [
+      "car insurance quotes",
+      "how to cook pasta carbonara",
+      "movie showtimes tonight",
+      "best coffee shops downtown",
+      "how to fix a leaky faucet",
+      "weather forecast tomorrow",
+      "cheap flights to dubai"
+    ],
+    "forum_posts": [],
+    "is_flagged_ground_truth": false
+  },
+  {
+    "subject_id": "SUBJ-0007",
+    "search_history": [
+      "best pizza near me",
+      "how to cook pasta carbonara",
+      "car insurance quotes",
+      "cheap flights to dubai",
+      "gym workout plan",
+      "python tutorial beginners",
+      "best coffee shops downtown",
+      "movie showtimes tonight",
+      "weather forecast tomorrow",
+      "how to fix a leaky faucet"
+    ],
+    "forum_posts": [],
+    "is_flagged_ground_truth": false
+  },
+  {
+    "subject_id": "SUBJ-0008",
+    "search_history": [
+      "car insurance quotes",
+      "weather forecast tomorrow",
+      "best coffee shops downtown",
+      "best pizza near me",
+      "how to cook pasta carbonara"
+    ],
+    "forum_posts": [],
+    "is_flagged_ground_truth": false
+  },
+  {
+    "subject_id": "SUBJ-0009",
+    "search_history": [
+      "best pizza near me",
+      "gym workout plan",
+      "best coffee shops downtown",
+      "cheap flights to dubai",
+      "car insurance quotes",
+      "how to cook pasta carbonara",
+      "how to fix a leaky faucet",
+      "weather forecast tomorrow"
+    ],
+    "forum_posts": [],
+    "is_flagged_ground_truth": false
+  },
+  {
+    "subject_id": "SUBJ-0010",
+    "search_history": [
+      "gym workout plan",
+      "how to disable a security camera without being seen",
+      "movie showtimes tonight",
+      "best parks near schools late at night",
+      "self-defense tools legal to carry",
+      "car insurance quotes",
+      "predatory behavior psychological patterns",
+      "how to track someone's location without them knowing",
+      "areas with low police presence",
+      "anonymous browsing methods tor vpn"
+    ],
+    "forum_posts": [
+      "Looking for advice on how to disable a security camera without being seen"
+    ],
+    "is_flagged_ground_truth": true
+  },
+  {
+    "subject_id": "SUBJ-0011",
+    "search_history": [
+      "how to fix a leaky faucet",
+      "best pizza near me",
+      "best coffee shops downtown",
+      "gym workout plan",
+      "movie showtimes tonight",
+      "car insurance quotes"
+    ],
+    "forum_posts": [],
+    "is_flagged_ground_truth": false
+  },
+  {
+    "subject_id": "SUBJ-0012",
+    "search_history": [
+      "how to cook pasta carbonara",
+      "gym workout plan",
+      "car insurance quotes",
+      "weather forecast tomorrow",
+      "best pizza near me",
+      "how to fix a leaky faucet",
+      "python tutorial beginners"
+    ],
+    "forum_posts": [],
+    "is_flagged_ground_truth": false
+  },
+  {
+    "subject_id": "SUBJ-0013",
+    "search_history": [
+      "gym workout plan",
+      "python tutorial beginners",
+      "best pizza near me",
+      "weather forecast tomorrow",
+      "car insurance quotes",
+      "cheap flights to dubai",
+      "best coffee shops downtown"
+    ],
+    "forum_posts": [],
+    "is_flagged_ground_truth": false
+  },
+  {
+    "subject_id": "SUBJ-0014",
+    "search_history": [
+      "cheap flights to dubai",
+      "car insurance quotes",
+      "weather forecast tomorrow",
+      "best coffee shops downtown",
+      "best pizza near me",
+      "how to fix a leaky faucet",
+      "python tutorial beginners",
+      "movie showtimes tonight"
+    ],
+    "forum_posts": [],
+    "is_flagged_ground_truth": false
+  }
+]

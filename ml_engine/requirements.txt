@@ -1,0 +1,48 @@
+# ─────────────────────────────────────────────────────────────
+# ARGUS ML Engine — Python Dependencies
+# ─────────────────────────────────────────────────────────────
+
+# Core Deep Learning
+torch>=2.1.0
+torchvision>=0.16.0
+
+# Computer Vision
+opencv-python>=4.8.0
+ultralytics>=8.0.196          # YOLOv8
+mediapipe>=0.10.7             # 3D Pose + Facial Landmarks
+
+# Graph Neural Networks
+torch-geometric>=2.4.0
+
+# Scientific Computing
+numpy>=1.24.0
+scipy>=1.11.0
+scikit-learn>=1.3.0
+pandas>=2.0.0
+
+# Spatiotemporal / GIS
+shapely>=2.0.0
+pyproj>=3.6.0
+
+# API
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.4.0
+httpx>=0.25.0
+sse-starlette>=1.8.2          # Server-Sent Events
+
+# Data / IO
+h5py>=3.9.0
+imageio>=2.31.0
+tqdm>=4.66.0
+pillow>=10.0.0
+av>=10.0.0                    # PyAV for video decoding
+
+# Imbalanced learning
+imbalanced-learn>=0.11.0
+
+# Logging / Utilities
+loguru>=0.7.0
+python-dotenv>=1.0.0
+rich>=13.6.0
+click>=8.1.0

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ARGUS — Predictive Threat Detection System</title>
+  <meta name="description" content="Project ARGUS — Multi-Modal AI Threat Detection Command Dashboard for Law Enforcement" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SCAN LINE OVERLAY
+════════════════════════════════════════════════════════════ -->
+<div class="scanlines" aria-hidden="true"></div>
+<div class="crt-overlay" aria-hidden="true"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════════════════════ -->
+<header class="argus-header" role="banner">
+  <div class="header-left">
+    <div class="logo-cluster">
+      <div class="logo-icon">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="32" cy="32" r="28" stroke="#00F5FF" stroke-width="2" opacity="0.4"/>
+          <circle cx="32" cy="32" r="18" stroke="#00F5FF" stroke-width="1.5" opacity="0.7"/>
+          <circle cx="32" cy="32" r="8" fill="#00F5FF" opacity="0.9"/>
+          <circle cx="32" cy="32" r="3" fill="#ffffff"/>
+          <line x1="4" y1="32" x2="14" y2="32" stroke="#00F5FF" stroke-width="1.5" opacity="0.6"/>
+          <line x1="50" y1="32" x2="60" y2="32" stroke="#00F5FF" stroke-width="1.5" opacity="0.6"/>
+          <line x1="32" y1="4" x2="32" y2="14" stroke="#00F5FF" stroke-width="1.5" opacity="0.6"/>
+          <line x1="32" y1="50" x2="32" y2="60" stroke="#00F5FF" stroke-width="1.5" opacity="0.6"/>
+          <line x1="11.5" y1="11.5" x2="18.5" y2="18.5" stroke="#00F5FF" stroke-width="1" opacity="0.4"/>
+          <line x1="45.5" y1="45.5" x2="52.5" y2="52.5" stroke="#00F5FF" stroke-width="1" opacity="0.4"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <h1 class="logo-title">ARGUS</h1>
+        <span class="logo-subtitle">Predictive Threat & Spatiotemporal Anomaly Detection System</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-center">
+    <div class="system-status" id="system-status">
+      <span class="status-dot" id="status-dot"></span>
+      <span class="status-label" id="status-label">CONNECTING...</span>
+    </div>
+    <div class="header-clock" id="header-clock"></div>
+  </div>
+
+  <div class="header-right">
+    <div class="header-meta">
+      <span class="meta-label">LEAD ARCHITECT</span>
+      <span class="meta-value">Abdullah Javed (vagabond)</span>
+    </div>
+    <div class="header-meta">
+      <span class="meta-label">CLASSIFICATION</span>
+      <span class="meta-value meta-restricted">LAW ENFORCEMENT SENSITIVE</span>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════
+     STATS BAR
+════════════════════════════════════════════════════════════ -->
+<section class="stats-bar" aria-label="System Statistics">
+  <div class="stat-tile" id="stat-total">
+    <span class="stat-value" id="val-total">0</span>
+    <span class="stat-label">TOTAL ALERTS</span>
+  </div>
+  <div class="stat-tile stat-critical" id="stat-critical">
+    <span class="stat-value" id="val-critical">0</span>
+    <span class="stat-label">CRITICAL</span>
+  </div>
+  <div class="stat-tile stat-high" id="stat-high">
+    <span class="stat-value" id="val-high">0</span>
+    <span class="stat-label">HIGH</span>
+  </div>
+  <div class="stat-tile stat-moderate" id="stat-moderate">
+    <span class="stat-value" id="val-moderate">0</span>
+    <span class="stat-label">MODERATE</span>
+  </div>
+  <div class="stat-tile" id="stat-subjects">
+    <span class="stat-value" id="val-subjects">0</span>
+    <span class="stat-label">SUBJECTS TRACKED</span>
+  </div>
+  <div class="stat-tile" id="stat-subscribers">
+    <span class="stat-value" id="val-subscribers">—</span>
+    <span class="stat-label">SSE STREAMS</span>
+  </div>
+  <div class="stat-tile" id="stat-nlp">
+    <span class="stat-value" id="val-nlp">0</span>
+    <span class="stat-label">NLP ANALYZED</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     MAIN LAYOUT
+════════════════════════════════════════════════════════════ -->
+<main class="main-layout" role="main">
+
+  <!-- LEFT PANEL — Alert Feed -->
+  <aside class="panel panel-left" aria-label="Alert Feed">
+    <div class="panel-header">
+      <span class="panel-title">⚡ LIVE ALERT FEED</span>
+      <div class="panel-controls">
+        <button id="btn-simulate" class="btn-action btn-simulate" title="Inject simulated alert">
+          ⊕ SIMULATE
+        </button>
+        <button id="btn-clear" class="btn-action btn-danger" title="Clear all alerts">
+          ✕ CLEAR
+        </button>
+      </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar" role="group" aria-label="Severity filter">
+      <button class="filter-btn active" data-severity="ALL" id="filter-all">ALL</button>
+      <button class="filter-btn filter-critical" data-severity="CRITICAL" id="filter-critical">CRITICAL</button>
+      <button class="filter-btn filter-high" data-severity="HIGH" id="filter-high">HIGH</button>
+      <button class="filter-btn filter-moderate" data-severity="MODERATE" id="filter-moderate">MODERATE</button>
+    </div>
+
+    <div class="alert-list" id="alert-list" role="list" aria-label="Threat alerts">
+      <div class="empty-state" id="empty-state">
+        <div class="empty-icon">👁</div>
+        <p>ARGUS is active. Monitoring feeds...</p>
+        <p class="empty-sub">Alerts will appear here in real time.</p>
+        <button class="btn-action btn-simulate" id="btn-simulate-2" style="margin-top:16px">⊕ Simulate Alert</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CENTER PANEL — Alert Detail / Report -->
+  <section class="panel panel-center" aria-label="Threat Report">
+    <div class="panel-header">
+      <span class="panel-title">📋 THREAT ASSESSMENT REPORT</span>
+      <span class="report-badge" id="report-badge">AWAITING SELECTION</span>
+    </div>
+
+    <div class="report-container" id="report-container">
+      <!-- Default empty state -->
+      <div class="report-empty" id="report-empty">
+        <div class="report-empty-eye">
+          <svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg" width="120" height="80">
+            <path d="M10 40 Q60 5 110 40 Q60 75 10 40" stroke="#00F5FF" stroke-width="2" fill="none" opacity="0.4"/>
+            <circle cx="60" cy="40" r="20" stroke="#00F5FF" stroke-width="2" fill="none" opacity="0.6"/>
+            <circle cx="60" cy="40" r="10" fill="#00F5FF" opacity="0.3"/>
+            <circle cx="60" cy="40" r="4" fill="#00F5FF"/>
+          </svg>
+        </div>
+        <h2>SELECT AN ALERT</h2>
+        <p>Click any alert card in the feed to view the full Predictive Threat Assessment Report with physical and digital indicators.</p>
+      </div>
+
+      <!-- Report Content (hidden until alert selected) -->
+      <div class="report-content" id="report-content" style="display:none;">
+
+        <!-- Report Header -->
+        <div class="report-hero" id="report-hero">
+          <div class="report-hero-left">
+            <div class="threat-gauge-container">
+              <canvas id="threat-gauge" width="160" height="160" aria-label="Threat score gauge"></canvas>
+              <div class="gauge-center-label">
+                <span class="gauge-score" id="gauge-score">0%</span>
+                <span class="gauge-sub">THREAT</span>
+              </div>
+            </div>
+          </div>
+          <div class="report-hero-right">
+            <div class="report-id" id="report-id">ARGUS-XXXXXXXX</div>
+            <div class="report-severity-badge" id="report-severity-badge">UNKNOWN</div>
+            <div class="report-meta-grid">
+              <div class="report-meta-item">
+                <span class="rmi-label">SUBJECT</span>
+                <span class="rmi-value" id="rpt-subject">—</span>
+              </div>
+              <div class="report-meta-item">
+                <span class="rmi-label">CAMERA</span>
+                <span class="rmi-value" id="rpt-camera">—</span>
+              </div>
+              <div class="report-meta-item">
+                <span class="rmi-label">TIMESTAMP</span>
+                <span class="rmi-value" id="rpt-timestamp">—</span>
+              </div>
+              <div class="report-meta-item">
+                <span class="rmi-label">COORDINATES</span>
+                <span class="rmi-value" id="rpt-coords">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sections -->
+        <div class="report-sections">
+
+          <!-- Section 1: Physical Indicators -->
+          <div class="report-section" id="sec-physical">
+            <div class="section-header">
+              <span class="section-icon">🏃</span>
+              <span class="section-title">SECTION 1 — PHYSICAL BEHAVIORAL INDICATORS</span>
+            </div>
+            <div class="indicators-grid">
+              <div class="indicator-card">
+                <span class="ic-label">ANOMALY TYPE</span>
+                <span class="ic-value ic-large" id="rpt-anomaly-type">—</span>
+              </div>
+              <div class="indicator-card">
+                <span class="ic-label">GAIT CLASS</span>
+                <span class="ic-value" id="rpt-gait-class">—</span>
+                <div class="ic-bar-wrap">
+                  <div class="ic-bar" id="bar-gait-conf" style="width:0%"></div>
+                  <span class="ic-bar-label" id="lbl-gait-conf">0%</span>
+                </div>
+              </div>
+              <div class="indicator-card">
+                <span class="ic-label">CNN-LSTM SCORE</span>
+                <div class="ic-bar-wrap">
+                  <div class="ic-bar ic-bar-anomaly" id="bar-anomaly" style="width:0%"></div>
+                  <span class="ic-bar-label" id="lbl-anomaly">0%</span>
+                </div>
+              </div>
+              <div class="indicator-card">
+                <span class="ic-label">FACE STRESS INDEX</span>
+                <div class="ic-bar-wrap">
+                  <div class="ic-bar ic-bar-stress" id="bar-stress" style="width:0%"></div>
+                  <span class="ic-bar-label" id="lbl-stress">0%</span>
+                </div>
+              </div>
+            </div>
+            <div class="behavioral-desc" id="behavioral-desc"></div>
+          </div>
+
+          <!-- Section 2: Spatiotemporal -->
+          <div class="report-section" id="sec-spatial">
+            <div class="section-header">
+              <span class="section-icon">🗺</span>
+              <span class="section-title">SECTION 2 — SPATIOTEMPORAL ROUTE ANALYSIS</span>
+            </div>
+            <div class="indicators-grid">
+              <div class="indicator-card">
+                <span class="ic-label">ROUTE DEVIATION</span>
+                <span class="ic-value ic-large" id="rpt-deviation">0.0σ</span>
+              </div>
+              <div class="indicator-card">
+                <span class="ic-label">GNN ROUTE SCORE</span>
+                <div class="ic-bar-wrap">
+                  <div class="ic-bar ic-bar-route" id="bar-gnn" style="width:0%"></div>
+                  <span class="ic-bar-label" id="lbl-gnn">0%</span>
+                </div>
+              </div>
+              <div class="indicator-card">
+                <span class="ic-label">HOTSPOT RISK</span>
+                <div class="ic-bar-wrap">
+                  <div class="ic-bar ic-bar-hotspot" id="bar-hotspot" style="width:0%"></div>
+                  <span class="ic-bar-label" id="lbl-hotspot">0%</span>
+                </div>
+              </div>
+              <div class="indicator-card">
+                <span class="ic-label">PROXIMITY ALERT</span>
+                <span class="proximity-badge" id="prox-badge">NO</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: OSINT NLP -->
+          <div class="report-section" id="sec-osint">
+            <div class="section-header">
+              <span class="section-icon">🔍</span>
+              <span class="section-title">SECTION 3 — DIGITAL FOOTPRINT ANALYSIS (OSINT)</span>
+            </div>
+            <div class="indicators-grid">
+              <div class="indicator-card">
+                <span class="ic-label">DIGITAL RISK SCORE</span>
+                <div class="ic-bar-wrap">
+                  <div class="ic-bar ic-bar-digital" id="bar-digital" style="width:0%"></div>
+                  <span class="ic-bar-label" id="lbl-digital">0%</span>
+                </div>
+              </div>
+              <div class="indicator-card">
+                <span class="ic-label">RISK MULTIPLIER</span>
+                <span class="ic-value ic-large ic-multiplier" id="rpt-multiplier">1.0x</span>
+              </div>
+              <div class="indicator-card">
+                <span class="ic-label">RISK CATEGORY</span>
+                <span class="ic-value" id="rpt-risk-cat">—</span>
+              </div>
+            </div>
+            <div class="flagged-phrases" id="flagged-phrases"></div>
+          </div>
+
+          <!-- Section 4: Synthesis -->
+          <div class="report-section sec-synthesis" id="sec-synthesis">
+            <div class="section-header">
+              <span class="section-icon">⚖</span>
+              <span class="section-title">SECTION 4 — THREAT SYNTHESIS & RECOMMENDATION</span>
+            </div>
+            <div class="synthesis-scores">
+              <div class="syn-score-item">
+                <span class="syn-label">Vision Score</span>
+                <span class="syn-value" id="syn-vision">—</span>
+              </div>
+              <div class="syn-operator">×</div>
+              <div class="syn-score-item">
+                <span class="syn-label">Digital Multiplier</span>
+                <span class="syn-value" id="syn-multiplier">—</span>
+              </div>
+              <div class="syn-operator">=</div>
+              <div class="syn-score-item syn-final">
+                <span class="syn-label">Final Score</span>
+                <span class="syn-value" id="syn-final">—</span>
+              </div>
+            </div>
+            <div class="recommendation-box" id="recommendation-box"></div>
+          </div>
+
+        </div><!-- end report-sections -->
+
+        <!-- Full Narrative Toggle -->
+        <div class="narrative-section">
+          <button class="btn-narrative-toggle" id="btn-narrative" aria-expanded="false">
+            📄 VIEW FULL NARRATIVE REPORT
+          </button>
+          <pre class="narrative-text" id="narrative-text" style="display:none;"></pre>
+        </div>
+
+      </div><!-- end report-content -->
+    </div><!-- end report-container -->
+  </section>
+
+  <!-- RIGHT PANEL — Analytics -->
+  <aside class="panel panel-right" aria-label="Analytics">
+    <div class="panel-header">
+      <span class="panel-title">📊 THREAT ANALYTICS</span>
+    </div>
+
+    <div class="analytics-content">
+
+      <!-- Anomaly Type Distribution -->
+      <div class="analytics-card">
+        <h3 class="analytics-title">ANOMALY DISTRIBUTION</h3>
+        <div class="chart-container" id="anomaly-chart">
+          <div class="chart-empty">No data yet</div>
+        </div>
+      </div>
+
+      <!-- Top Subjects -->
+      <div class="analytics-card">
+        <h3 class="analytics-title">TOP THREAT SUBJECTS</h3>
+        <div class="subjects-list" id="subjects-list">
+          <div class="chart-empty">No subjects tracked</div>
+        </div>
+      </div>
+
+      <!-- Module Score Breakdown -->
+      <div class="analytics-card">
+        <h3 class="analytics-title">MODULE SCORE LEGEND</h3>
+        <div class="legend-grid">
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#00F5FF"></div>
+            <span>Module A — Spatial (YOLOv8)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#FF6D00"></div>
+            <span>Module B — Temporal (CNN-LSTM)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#7B61FF"></div>
+            <span>Module C — Spatiotemporal (GNN)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#FF1744"></div>
+            <span>Module D — OSINT NLP (RoBERTa)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- System Pipeline Status -->
+      <div class="analytics-card">
+        <h3 class="analytics-title">PIPELINE STATUS</h3>
+        <div class="pipeline-steps">
+          <div class="pipe-step pipe-active" id="pipe-vision">
+            <div class="pipe-dot"></div>
+            <div class="pipe-info">
+              <span class="pipe-name">ML Vision Engine</span>
+              <span class="pipe-status" id="pstat-vision">MONITORING</span>
+            </div>
+          </div>
+          <div class="pipe-connector"></div>
+          <div class="pipe-step pipe-active" id="pipe-sensor">
+            <div class="pipe-dot"></div>
+            <div class="pipe-info">
+              <span class="pipe-name">Sensor Hub API</span>
+              <span class="pipe-status" id="pstat-sensor">ONLINE</span>
+            </div>
+          </div>
+          <div class="pipe-connector"></div>
+          <div class="pipe-step pipe-active" id="pipe-nlp">
+            <div class="pipe-dot"></div>
+            <div class="pipe-info">
+              <span class="pipe-name">OSINT NLP Agent</span>
+              <span class="pipe-status" id="pstat-nlp">READY</span>
+            </div>
+          </div>
+          <div class="pipe-connector"></div>
+          <div class="pipe-step pipe-active" id="pipe-dash">
+            <div class="pipe-dot"></div>
+            <div class="pipe-info">
+              <span class="pipe-name">Dashboard</span>
+              <span class="pipe-status" id="pstat-dash">LIVE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </aside>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════════════════
+     ALERT NOTIFICATION TOAST
+════════════════════════════════════════════════════════════ -->
+<div class="alert-toast" id="alert-toast" role="alert" aria-live="assertive">
+  <div class="toast-icon" id="toast-icon">⚠</div>
+  <div class="toast-content">
+    <div class="toast-title" id="toast-title">NEW ALERT</div>
+    <div class="toast-body" id="toast-body">—</div>
+  </div>
+  <button class="toast-close" id="toast-close" aria-label="Dismiss">✕</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════ -->
+<footer class="argus-footer" role="contentinfo">
+  <span>PROJECT ARGUS v1.0 — Multi-Modal AI Threat Detection</span>
+  <span class="footer-sep">|</span>
+  <span>⚠ FOR LAW ENFORCEMENT USE ONLY — AI-ASSISTED ANALYSIS REQUIRES HUMAN REVIEW</span>
+  <span class="footer-sep">|</span>
+  <span>Lead Architect: Abdullah Javed (vagabond)</span>
+</footer>
+
+<script src="/static/argus.js"></script>
+</body>
+</html>
